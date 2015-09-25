@@ -18,4 +18,9 @@ class Util {
         "lo" => 'ພາສາລາວ',
         "th" => 'พาษาไทย'
     ];
+    public static $FLASH_LEVEL = [
+        "success",
+        "warning",
+        "error"
+    ];
 }

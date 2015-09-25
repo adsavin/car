@@ -97,6 +97,18 @@ AppAsset::register($this);
                     'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
                 ])
                 ?>
+                <div id="flash" class="row">
+                    <div class="col-lg-12">
+                        <?php
+                        foreach (Util::$FLASH_LEVEL as $level) {
+                            $flash = Yii::$app->session->getFlash($level);
+                            if ($flash) {
+                                echo yii\bootstrap\Alert::widget(['options' => ['class' => 'alert-' . $level], 'body' => $flash]);
+                            }
+                        }
+                        ?>
+                    </div>
+                </div>
                 <div class="row">
                     <div id="leftpart" class="hidden-lg hidden-md hidden-sm hidden-xs">
                         <div class="panel panel-primary">
@@ -123,23 +135,20 @@ AppAsset::register($this);
         </footer>        
         <?php $this->endBody() ?>
         <?php
-        $this->registerJs('
-            $("#btnshowhide").click(function(e) {
-                    e.preventDefault();                    
-                    if ($("#leftpart").hasClass("col-lg-3")) {
-//                        $("#leftpart").animate({width: "0px"}, 1000, "linear", function() {
-                            $("#leftpart").prop("class", "hidden-lg hidden-md hidden-sm hidden-xs");                        
-                            $("#rightpart").prop("class", "col-lg-12 col-md-12 col-sm-12 col-xs-12");
-//                        });
-                        
-                    } else {                        
-//                        $("#leftpart").animate({width: "25%"}, 500, "linear", function() {
-                            $("#leftpart").prop("class", "col-lg-3 col-md-3 col-sm-4 col-xs-4");
-                            $("#rightpart").prop("class", "col-lg-9 col-md-9 col-sm-8 col-xs-8");
-//                        });                        
-                    }
-                });
-                $("input.form-control").first().focus();
+        $this->registerJs('$("#btnshowhide").click(function(e) {
+                                e.preventDefault();                    
+                                if ($("#leftpart").hasClass("col-lg-3")) {
+                                    $("#leftpart").prop("class", "hidden-lg hidden-md hidden-sm hidden-xs");                        
+                                    $("#rightpart").prop("class", "col-lg-12 col-md-12 col-sm-12 col-xs-12");                        
+                                } else {                        
+                                    $("#leftpart").prop("class", "col-lg-3 col-md-3 col-sm-4 col-xs-4");
+                                    $("#rightpart").prop("class", "col-lg-9 col-md-9 col-sm-8 col-xs-8");
+                                }
+                            });
+                            $("input.form-control").first().focus();
+                            $("#flash").fadeOut(5000, function() {
+                                $("#flash").addClass("hidden");
+                            });
             ');
         ?>
     </body>
