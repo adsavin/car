@@ -2,5 +2,5 @@
 
 return [
     'appname' => 'Adsavin',
-    'adminEmail' => 'admin@example.com',
+    'adminEmail' => 'adsavin.t@gmail.com',
 ];

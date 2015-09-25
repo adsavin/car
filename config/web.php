@@ -25,12 +25,38 @@ $config = [
         'errorHandler' => [
             'errorAction' => 'site/error',
         ],
+//        'mailer' => [
+//            'class' => 'yii\swiftmailer\Mailer',
+//            // send all mails to a file by default. You have to set
+//            // 'useFileTransport' to false and configure a transport
+//            // for the mailer to send real emails.
+//            'useFileTransport' => true,            
+//        ],
+//        'mailer' => [
+//            'class' => 'yii\swiftmailer\Mailer',
+//            'viewPath' => '@app/view/mail/template',
+//            'useFileTransport' => false, //set this property to false to send mails to real email addresses
+//            //comment the following array to send mail using php's mail function
+//            'transport' => [
+//                'class' => 'Swift_SmtpTransport',
+//                'host' => 'ssl://smtp.gmail.com',
+//                'username' => 'laodebug@gmail.com',
+//                'password' => 'gm@bcel5115',
+//                'port' => '465',
+////                'auth' => true,
+//                'encryption' => 'tls',
+//            ],
+//        ],
         'mailer' => [
             'class' => 'yii\swiftmailer\Mailer',
-            // send all mails to a file by default. You have to set
-            // 'useFileTransport' to false and configure a transport
-            // for the mailer to send real emails.
-            'useFileTransport' => true,
+            'transport' => [
+                'class' => 'Swift_SmtpTransport',
+                'host' => 'smtp.gmail.com',
+                'username' => 'laodebug@gmail.com',
+                'password' => 'gm@bcel5115',
+                'port' => '465',
+                'encryption' => 'ssl',
+            ],
         ],
         'log' => [
             'flushInterval' => 1,
@@ -103,6 +129,9 @@ $config = [
                 'profile' => 'app\controllers\UserProfileController',
             ],
             'enableUnconfirmedLogin' => true,
+            'enablePasswordRecovery' => false,
+            'enableConfirmation' => false,
+            'enableRegistration' => false,
             'confirmWithin' => 21600,
             'cost' => 12,
             'admins' => ['admin'] //superadmin

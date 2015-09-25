@@ -83,7 +83,7 @@ AppAsset::register($this);
                         [ 'label' => Yii::t('app', "Profile"), 'url' => ['/user/settings/profile']],
                         [ 'label' => Yii::t('app', 'Logout'), 'url' => ['/user/security/logout'], 'linkOptions' => ['data-method' => 'post']],
                     ]],
-                ['label' => Yii::t('app', 'Register'), 'url' => ['/user/registration/register'], 'visible' => Yii::$app->user->isGuest]
+//                ['label' => Yii::t('app', 'Register'), 'url' => ['/user/registration/register'], 'visible' => Yii::$app->user->isGuest]
             ]);
             echo Nav::widget([
                 'options' => ['class' => 'navbar-nav navbar-right'],
@@ -122,20 +122,26 @@ AppAsset::register($this);
             </div>
         </footer>        
         <?php $this->endBody() ?>
-        <script type="text/javascript">
-            $(document).ready(function () {
-                $("#btnshowhide").click(function(e) {
-                    e.preventDefault();
+        <?php
+        $this->registerJs('
+            $("#btnshowhide").click(function(e) {
+                    e.preventDefault();                    
                     if ($("#leftpart").hasClass("col-lg-3")) {
-                        $("#leftpart").prop('class', 'hidden-lg hidden-md hidden-sm hidden-xs');
-                        $("#rightpart").prop('class', 'col-lg-12 col-md-12 col-sm-12 col-xs-12');
-                    } else {
-                        $("#leftpart").prop('class', 'col-lg-3 col-md-3 col-sm-4 col-xs-4');
-                        $("#rightpart").prop('class', 'col-lg-9 col-md-9 col-sm-8 col-xs-8');
+//                        $("#leftpart").animate({width: "0px"}, 1000, "linear", function() {
+                            $("#leftpart").prop("class", "hidden-lg hidden-md hidden-sm hidden-xs");                        
+                            $("#rightpart").prop("class", "col-lg-12 col-md-12 col-sm-12 col-xs-12");
+//                        });
+                        
+                    } else {                        
+//                        $("#leftpart").animate({width: "25%"}, 500, "linear", function() {
+                            $("#leftpart").prop("class", "col-lg-3 col-md-3 col-sm-4 col-xs-4");
+                            $("#rightpart").prop("class", "col-lg-9 col-md-9 col-sm-8 col-xs-8");
+//                        });                        
                     }
                 });
-            });
-        </script>
+                $("input.form-control").first().focus();
+            ');
+        ?>
     </body>
 </html>
 <?php $this->endPage() ?>
