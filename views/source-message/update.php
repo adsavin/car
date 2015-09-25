@@ -17,6 +17,21 @@ $this->params['breadcrumbs'][] = Yii::t('app', 'Update');
     <div class="col-lg-6 col-md-6">
         <h1><?= Html::encode($this->title) ?></h1>
         <?=
+        yii\grid\GridView::widget([
+            'dataProvider' => $dataProvider,
+            'filterModel' => $searchModel,
+            'columns' => [
+                ['class' => 'yii\grid\SerialColumn'],
+                'category',
+                'message:ntext',
+                ['class' => 'yii\grid\ActionColumn'],
+            ],
+        ]);
+        ?>
+    </div>
+    <div class="col-lg-6 col-md-6">
+        <h1><?= Html::encode($this->title) ?></h1>
+        <?=
         $this->render('_form', [
             'model' => $model,
             'message' => $message,
@@ -24,3 +39,8 @@ $this->params['breadcrumbs'][] = Yii::t('app', 'Update');
         ?>
     </div>
 </div>
+<?php
+$this->registerJs("
+    $('#message-translation').focus();
+    ");
+?>

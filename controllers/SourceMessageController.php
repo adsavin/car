@@ -45,8 +45,12 @@ class SourceMessageController extends Controller {
      * @return mixed
      */
     public function actionView($id) {
+        $searchModel = new SourceMessageSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
         return $this->render('view', [
                     'model' => $this->findModel($id),
+                    'searchModel' => $searchModel,
+                    'dataProvider' => $dataProvider,
         ]);
     }
 
@@ -76,30 +80,30 @@ class SourceMessageController extends Controller {
      */
     public function actionUpdate($id) {
         $model = $this->findModel($id);
-        
-        if ($model->load(Yii::$app->request->post())) {            
+
+        if ($model->load(Yii::$app->request->post())) {
             $message = new \app\models\Message();
-            if($message->load(Yii::$app->request->post())) {
-                if(!$message->save()) {                    
-                    $error = "";                    
+            if ($message->load(Yii::$app->request->post())) {
+                if (!$message->save()) {
+                    $error = "";
                     foreach ($message->getErrors() as $er) {
                         $error = $er->attribute;
                     }
                     Yii::$app->session->setFlash("error", Yii::t('app', "Can not save. \n{}"));
                 }
             }
-            return $this->redirect(["index"]);
-//            return $this->redirect(['view', 'id' => $model->id]);
-        } else {
-            return $this->render('update', [
-                        'model' => $model,
-                        'message' => new \app\models\Message(),
-                        'searchModel' => new \app\models\MessageSearch(),
-                        'dataProvider' => new \yii\data\ActiveDataProvider([
-                            'query' => $model->getMessages()
-                                ])
-            ]);
+//            return $this->redirect(["index"]);
+            return $this->redirect(['view', 'id' => $model->id]);
         }
+        $searchModel = new SourceMessageSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
+        return $this->render('update', [
+                    'model' => $model,
+                    'message' => new \app\models\Message(),
+                    'searchModel' => $searchModel,
+                    'dataProvider' => $dataProvider,
+        ]);
     }
 
     /**

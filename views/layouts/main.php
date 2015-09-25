@@ -42,11 +42,9 @@ AppAsset::register($this);
 
             echo Nav::widget([
                 'options' => ['class' => 'navbar-nav navbar-left'],
+                'encodeLabels' => false,
                 'items' => [
-                    ['label' => '<b class="glyphicon glyphicon-home"></b>',
-                        'url' => '#', 'linkOptions' => [
-                            "id" => 'btnshowhide'
-                        ]]
+                    ['label' => '<b class="glyphicon glyphicon-home"></b>', 'url' => '#', 'linkOptions' => ["id" => 'btnshowhide']]
                 ],
             ]);
 
@@ -54,12 +52,12 @@ AppAsset::register($this);
             $language = [];
             $language[] = [
                 'label' => "English",
-                'url' => ['site/switchlang', ["lang" => 'en']]
+                'url' => ['/site/switchlang', ["lang" => 'en']]
             ];
             foreach ($alllangs as $key => $value) {
                 $language[] = [
                     'label' => $value,
-                    'url' => ['site/switchlang', ["lang" => $key]]
+                    'url' => ['/site/switchlang', ["lang" => $key]]
                 ];
             }
             $items = [
@@ -67,6 +65,7 @@ AppAsset::register($this);
                 ['label' => substr(Yii::$app->language, 0, 2) === "en" ? "English" : $alllangs[Yii::$app->language], 'items' => $language]
             ];
             if (Yii::$app->user->can("Administrator")) {
+                $items[] = ['label' => Yii::t('app', 'Users'), 'url' => ['/user/admin']];
                 $items[] = ['label' => Yii::t('app', 'Roles'), 'url' => ['/admin'], 'linkOptions' => ['target' => '_blank']];
             }
             if (Yii::$app->user->can("user-role")) {
@@ -76,7 +75,7 @@ AppAsset::register($this);
                 ]];
             }
             $items = array_merge($items, [
-                ['label' => Yii::t('app', 'About') . Yii::$app->sourceLanguage, 'url' => ['/site/about'], 'visible' => Yii::$app->user->isGuest],
+                ['label' => Yii::t('app', 'About'), 'url' => ['/site/about'], 'visible' => Yii::$app->user->isGuest],
                 ['label' => Yii::t('app', 'Contact'), 'url' => ['/site/contact'], 'visible' => Yii::$app->user->isGuest],
                 Yii::$app->user->isGuest ?
                         ['label' => Yii::t('app', 'Login'), 'url' => ['/user/security/login']] :
@@ -125,7 +124,8 @@ AppAsset::register($this);
         <?php $this->endBody() ?>
         <script type="text/javascript">
             $(document).ready(function () {
-                $("#btnshowhide").click(function () {
+                $("#btnshowhide").click(function(e) {
+                    e.preventDefault();
                     if ($("#leftpart").hasClass("col-lg-3")) {
                         $("#leftpart").prop('class', 'hidden-lg hidden-md hidden-sm hidden-xs');
                         $("#rightpart").prop('class', 'col-lg-12 col-md-12 col-sm-12 col-xs-12');

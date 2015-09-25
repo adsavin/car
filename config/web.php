@@ -7,8 +7,8 @@ $config = [
     'name' => 'Adsavin',
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
-//    'language' => 'lo',
-    'sourceLanguage'=>'en',
+    'language' => 'lo',
+    'sourceLanguage' => 'en',
     'components' => [
         'request' => [
             // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
@@ -33,11 +33,16 @@ $config = [
             'useFileTransport' => true,
         ],
         'log' => [
+            'flushInterval' => 1,
             'traceLevel' => YII_DEBUG ? 3 : 0,
             'targets' => [
                 [
                     'class' => 'yii\log\FileTarget',
+//                    'levels' => ['error', 'warning', 'info', 'trace'],
                     'levels' => ['error', 'warning'],
+                    'categories' => ['yii\db\*', 'app\*'],
+                    'logFile' => '@app/runtime/logs/ad.log',
+                    'exportInterval' => 1,
                 ],
             ],
         ],
@@ -52,7 +57,7 @@ $config = [
                     'class' => 'yii\i18n\DbMessageSource',
                     'sourceMessageTable' => '{{%source_message}}',
                     'messageTable' => '{{%message}}',
-                    'enableCaching' => true,
+//                    'enableCaching' => true,
                     'cachingDuration' => 3600,
 //                    'forceTranslation' => true,
                     'on missingTranslation' => ['app\components\TranslationEventHandler', 'handleMissingTranslation']

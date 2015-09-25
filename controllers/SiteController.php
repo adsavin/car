@@ -11,6 +11,14 @@ use app\models\ContactForm;
 
 class SiteController extends Controller {
 
+    public function init() {
+        parent::init();
+        $cookies = Yii::$app->request->cookies;
+        if ($cookies->has("language")) {
+            Yii::$app->language = $cookies->getValue('language');
+        }
+    }
+
     public function behaviors() {
         return [
             'access' => [
@@ -87,10 +95,17 @@ class SiteController extends Controller {
 
     public function actionSwitchlang() {
         $get = Yii::$app->request->get();
-//        echo Yii::$app->language;
-        Yii::$app->language = $get[1]['lang'];        
-//        echo Yii::$app->language;exit;
-        return $this->goBack();
+        $cookies = Yii::$app->response->cookies; // add a new cookie to the response to be sent
+        $cookies->add(new \yii\web\Cookie([
+            'name' => 'language',
+            'value' => $get[1]['lang'],
+        ]));
+        
+        if (Yii::$app->request->referrer) {
+            return $this->redirect(Yii::$app->request->referrer);
+        } else {
+            return $this->goHome();
+        }
     }
 
 }
