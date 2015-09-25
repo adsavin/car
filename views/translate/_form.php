@@ -14,7 +14,8 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'id')->textInput(["readonly" => 'true']) ?>
 
-    <?= $form->field($model, 'language')->textInput(['maxlength' => true]) ?>
+    <?php // echo $form->field($model, 'language')->textInput(['maxlength' => true]) ?>
+    <?php echo $form->field($model, 'language')->dropDownList(app\components\Util::$LANGUAGES) ?>
 
     <?= $form->field($model, 'translation')->textarea(['rows' => 6]) ?>
 

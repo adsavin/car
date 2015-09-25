@@ -4,9 +4,11 @@ $params = require(__DIR__ . '/params.php');
 
 $config = [
     'id' => 'basic',
+    'name' => 'Adsavin',
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
-    'language' => 'lo',
+//    'language' => 'lo',
+    'sourceLanguage'=>'en',
     'components' => [
         'request' => [
             // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
@@ -52,7 +54,7 @@ $config = [
                     'messageTable' => '{{%message}}',
                     'enableCaching' => true,
                     'cachingDuration' => 3600,
-                    'forceTranslation' => true,
+//                    'forceTranslation' => true,
                     'on missingTranslation' => ['app\components\TranslationEventHandler', 'handleMissingTranslation']
                 ]
             ],

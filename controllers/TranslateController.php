@@ -78,13 +78,16 @@ class TranslateController extends Controller {
     public function actionUpdate($id, $language) {
         $model = $this->findModel($id, $language);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id, 'language' => $model->language]);
-        } else {
-            return $this->render('update', [
-                        'model' => $model,
-            ]);
+        if ($model->load(Yii::$app->request->post())) {
+            if (!$model->save()) {
+                Yii::$app->session->setFlash("error", "Error.");
+            }
+//            return $this->redirect(['view', 'id' => $model->id, 'language' => $model->language]);
+//            return $this->redirect(["update"])
         }
+        return $this->render('update', [
+                    'model' => $model,
+        ]);
     }
 
     /**
@@ -114,6 +117,16 @@ class TranslateController extends Controller {
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
         }
+    }
+
+    public function actionMissing() {
+        $searchModel = new \app\models\SourceMessageSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
+        return $this->render('missing', [
+                    'searchModel' => $searchModel,
+                    'dataProvider' => $dataProvider,
+        ]);
     }
 
 }
