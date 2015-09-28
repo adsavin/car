@@ -14,6 +14,14 @@ use yii\filters\VerbFilter;
  */
 class TranslateController extends Controller {
 
+    public function init() {
+        parent::init();
+        $cookies = Yii::$app->request->cookies;
+        if ($cookies->has("language")) {
+            Yii::$app->language = $cookies->getValue('language');
+        }
+    }
+    
     public function behaviors() {
         return [
             'verbs' => [

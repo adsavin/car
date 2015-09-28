@@ -11,6 +11,14 @@ use Yii;
  */
 class UserSecurityController extends \dektrium\user\controllers\SecurityController {
 
+    public function init() {
+        parent::init();
+        $cookies = Yii::$app->request->cookies;
+        if ($cookies->has("language")) {
+            Yii::$app->language = $cookies->getValue('language');
+        }
+    }
+    
     public function actionLogin() {        
         
         if (!\Yii::$app->user->isGuest) {

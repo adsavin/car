@@ -8,6 +8,8 @@ use yii\bootstrap\NavBar;
 use yii\widgets\Breadcrumbs;
 use app\assets\AppAsset;
 use app\components\Util;
+use \yii\bootstrap\Modal;
+use yii\widgets\Pjax;
 
 AppAsset::register($this);
 ?>
@@ -40,33 +42,48 @@ AppAsset::register($this);
                 ],
             ]);
 
-            echo Nav::widget([
-                'options' => ['class' => 'navbar-nav navbar-left'],
-                'encodeLabels' => false,
-                'items' => [
-                    ['label' => '<b class="glyphicon glyphicon-home"></b>', 'url' => '#', 'linkOptions' => ["id" => 'btnshowhide']]
-                ],
-            ]);
-
             $alllangs = Util::$LANGUAGES;
             $language = [];
             $language[] = [
-                'label' => "English",
+                'label' => Html::img("images/en.png", ["class" => 'responsive']),
                 'url' => ['/site/switchlang', ["lang" => 'en']]
             ];
             foreach ($alllangs as $key => $value) {
                 $language[] = [
-                    'label' => $value,
+                    'label' => Html::img("images/$key.png", ["class" => 'responsive']),
                     'url' => ['/site/switchlang', ["lang" => $key]]
                 ];
             }
+
+            echo Nav::widget([
+                'options' => ['class' => 'navbar-nav navbar-left'],
+                'encodeLabels' => false,
+                'items' => [
+                    ['label' => substr(Yii::$app->language, 0, 2) === "en" ? Html::img("images/en.png", ["class" => 'responsive']) :
+                                Html::img("images/" . Yii::$app->language . ".png", ["class" => 'responsive']), 'items' => $language],
+                    ['label' => '<b id="btnshowhidelogo" class="glyphicon glyphicon-indent-left"></b>',
+                        'url' => '#', 'linkOptions' => ["id" => 'btnshowhide', 'class' => 'hidden-xs'],
+                        'visible' => !Yii::$app->user->isGuest,
+                    ]
+                ],
+            ]);
+
             $items = [
-                ['label' => Yii::t('app', 'Home'), 'url' => ['/site/index']],
-                ['label' => substr(Yii::$app->language, 0, 2) === "en" ? "English" : $alllangs[Yii::$app->language], 'items' => $language]
+                ['label' => '<b class="glyphicon glyphicon-home"></b> ' . Yii::t('app', 'Home'), 'url' => ['/site/index']],
             ];
             if (Yii::$app->user->can("Administrator")) {
-                $items[] = ['label' => Yii::t('app', 'Users'), 'url' => ['/user/admin']];
-                $items[] = ['label' => Yii::t('app', 'Roles'), 'url' => ['/admin'], 'linkOptions' => ['target' => '_blank']];
+                $items[] = ["label" => Yii::t('app', "Setting"), "items" => [
+                        ['label' => Yii::t('app', 'Products Category'), 'url' => ['/product-category']],
+                        ['label' => Yii::t('app', 'Products Group'), 'url' => ['/product-group']],
+                        ['label' => Yii::t('app', 'Products'), 'url' => ['/product']],
+                        ['label' => Yii::t('app', 'Products Serial'), 'url' => ['/product-serial']],
+                        '<li class="divider"></li>',
+                        ['label' => Yii::t('app', 'Users'), 'url' => ['/user/admin']],
+                        ['label' => Yii::t('app', 'Roles'), 'url' => ['/admin'], 'linkOptions' => ['target' => '_blank']]
+                    ]
+                ];
+//                $items[] = ['label' => Yii::t('app', 'Users'), 'url' => ['/user/admin']];
+//                $items[] = ['label' => Yii::t('app', 'Roles'), 'url' => ['/admin'], 'linkOptions' => ['target' => '_blank']];
             }
             if (Yii::$app->user->can("user-role")) {
                 $items[] = ['label' => Yii::t('app', 'Translate'), 'items' => [
@@ -87,6 +104,7 @@ AppAsset::register($this);
             ]);
             echo Nav::widget([
                 'options' => ['class' => 'navbar-nav navbar-right'],
+                'encodeLabels' => false,
                 'items' => $items,
             ]);
             NavBar::end();
@@ -110,7 +128,7 @@ AppAsset::register($this);
                     </div>
                 </div>
                 <div class="row">
-                    <div id="leftpart" class="hidden-lg hidden-md hidden-sm hidden-xs">
+                    <div id="leftpart" class="hidden-lg hidden-md hidden-sm hidden-xs  hidden-print">
                         <div class="panel panel-primary">
                             <div class="panel-heading"><?= Yii::t('app', 'Menu') ?></div>
                             <div class="panel-body">
@@ -126,8 +144,19 @@ AppAsset::register($this);
                 </div>                
             </div>
         </div>
+        <?php
+        
+        Modal::begin([
+            'header' => '<h3>Title</h3>',
+//            'toggleButton' => ['label' => 'click me'],
+            'id' => 'modalbox'
+        ]);        
+        Pjax::begin();
+        Pjax::end();
+        Modal::end();        
+        ?>
 
-        <footer class="footer">
+        <footer class="footer hidden-print">
             <div class="container">
                 <p class="pull-left">&copy; <?= Yii::$app->name ?> <?= date('Y') ?></p>
                 <p class="pull-right"><?= Yii::powered() ?></p>
@@ -139,16 +168,22 @@ AppAsset::register($this);
                                 e.preventDefault();                    
                                 if ($("#leftpart").hasClass("col-lg-3")) {
                                     $("#leftpart").prop("class", "hidden-lg hidden-md hidden-sm hidden-xs");                        
-                                    $("#rightpart").prop("class", "col-lg-12 col-md-12 col-sm-12 col-xs-12");                        
+                                    $("#rightpart").prop("class", "col-lg-12 col-md-12 col-sm-12 col-xs-12");    
+                                    $("#btnshowhidelogo").prop("class", "glyphicon glyphicon-indent-left");
                                 } else {                        
                                     $("#leftpart").prop("class", "col-lg-3 col-md-3 col-sm-4 col-xs-4");
                                     $("#rightpart").prop("class", "col-lg-9 col-md-9 col-sm-8 col-xs-8");
+                                    $("#btnshowhidelogo").prop("class", "glyphicon glyphicon-indent-right");
                                 }
                             });
                             $("input.form-control").first().focus();
-                            $("#flash").fadeOut(5000, function() {
+                            $("#flash").fadeOut(30000, function() {
                                 $("#flash").addClass("hidden");
-                            });
+                            }); 
+                            
+                            function selectItem(modalbody) {
+                                $("#modalbox .modal-boy").html(modalbody);
+                            }
             ');
         ?>
     </body>

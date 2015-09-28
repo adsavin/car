@@ -41,7 +41,9 @@ class SourceMessageSearch extends SourceMessage
      */
     public function search($params)
     {
-        $query = SourceMessage::find()->where("id not in (select id from message)"); 
+        $query = SourceMessage::find()->where("id not in (select id from message where language = :language)", [
+            ":language" => Yii::$app->language,
+        ])->orderBy("message"); 
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,

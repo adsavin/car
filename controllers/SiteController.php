@@ -90,4 +90,16 @@ class SiteController extends Controller {
         }
     }
 
+    public function actionPdf() {                
+        $mpdf = new \mPDF("lo"); //mPDF($mode='',$format='A4',$default_font_size=0,$default_font='',$mgl=15,$mgr=15,$mgt=16,$mgb=16,$mgh=9,$mgf=9, $orientation='P')        
+        $mpdf->WriteHTML("<style>" . file_get_contents("bootstrap/css/bootstrap.css") . "</style>");
+        $mpdf->WriteHTML("<style>" . file_get_contents("css/site.css") . "</style>");
+//        $mpdf->FontFamily = 'Saysettha OT';
+//        $mpdf->fontlist="Saysettha OT";
+//        $mpdf->fonts = "Phetsarath_OT.ttf";
+        $mpdf->WriteHTML($this->renderPartial('index'));
+        $mpdf->Output('MyPDF.pdf', 'I');
+        exit;
+    }
+
 }

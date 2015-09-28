@@ -1,12 +1,8 @@
 <?php
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 namespace app\components;
+
+use Yii;
 
 /**
  * Description of Util
@@ -14,6 +10,7 @@ namespace app\components;
  * @author adsavin
  */
 class Util {
+
     public static $LANGUAGES = [
         "lo" => 'ພາສາລາວ',
         "th" => 'พาษาไทย'
@@ -21,6 +18,33 @@ class Util {
     public static $FLASH_LEVEL = [
         "success",
         "warning",
-        "error"
+        "danger"
     ];
+
+    public static function save($model) {
+        if ($model->save()) {
+            Yii::$app->session->setFlash("success", Yii::t('app', 'Completed'));
+        } else {
+            $error = "<ul>";
+            if(YII_DEBUG) {
+                foreach ($model->errors as $err) {
+                    foreach ($err as $e) {
+                        $error .= "<li>$e</li>";
+                    }
+                }
+            }
+            $error .= "</ul>";
+            Yii::$app->session->setFlash("danger", Yii::t('app', 'Error').": ".$error);
+        }
+    }
+
+    public static function createButton() {
+        echo "<p>";
+        echo Yii::$app->controller->action->id === "index" ? \yii\bootstrap\Html::a(Yii::t('app', 'Create'), ['create'], ['class' => 'btn btn-success']) : "";
+        echo "</p>";
+    }
+
+    public static function selectColumnGridModal() {
+//        return 
+    }
 }

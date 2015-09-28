@@ -19,11 +19,12 @@ use yii\widgets\ActiveForm;
         <?= $form->field($model, 'message')->textarea(['rows' => 3, 'readonly' => true]) ?>
     </div>       
     <div class="col-lg-3 col-md-3 col-sm-4 col-xs-4">
-        <?php // echo $form->field($message, 'language')->textInput(['maxlength' => true]) ?>
-        <?php echo $form->field($message, 'language')->dropDownList(app\components\Util::$LANGUAGES) ?>
+        <?php echo $form->field($message, 'language')->textInput(['value' => Yii::$app->language,'readonly' => true]) ?>
+        <?php // echo $form->field($message, 'language')->dropDownList(app\components\Util::$LANGUAGES, ["selected" => Yii::$app->language]) ?>
     </div>
     <div class="col-lg-9 col-md-9 col-sm-8 col-xs-8">
-        <?= $form->field($message, 'translation')->textarea(['rows' => 3]) ?>
+        <?php // echo $form->field($message, 'translation')->textarea(['rows' => 3]) ?>
+        <?= $form->field($message, 'translation')->textInput() ?>
         <?= $form->field($message, 'id')->textInput(["readonly" => 'true', 'value' => $model->id, 'class' => 'hidden'])->label(false) ?>       
     </div>
     <div class="form-group">
@@ -31,3 +32,6 @@ use yii\widgets\ActiveForm;
     </div>    
 </div>
 <?php ActiveForm::end(); ?>
+<?php  
+$this->registerJs("$('#message-translation').focus()");
+?>

@@ -95,7 +95,7 @@ class Formatter extends Component
      *
      * It can also be a custom format as specified in the [ICU manual](http://userguide.icu-project.org/formatparse/datetime#TOC-Date-Time-Format-Syntax).
      * Alternatively this can be a string prefixed with `php:` representing a format that can be recognized by the
-     * PHP [date()](http://php.net/manual/de/function.date.php)-function.
+     * PHP [date()](http://php.net/manual/en/function.date.php)-function.
      *
      * For example:
      *
@@ -111,7 +111,7 @@ class Formatter extends Component
      *
      * It can also be a custom format as specified in the [ICU manual](http://userguide.icu-project.org/formatparse/datetime#TOC-Date-Time-Format-Syntax).
      * Alternatively this can be a string prefixed with `php:` representing a format that can be recognized by the
-     * PHP [date()](http://php.net/manual/de/function.date.php)-function.
+     * PHP [date()](http://php.net/manual/en/function.date.php)-function.
      *
      * For example:
      *
@@ -128,7 +128,7 @@ class Formatter extends Component
      * It can also be a custom format as specified in the [ICU manual](http://userguide.icu-project.org/formatparse/datetime#TOC-Date-Time-Format-Syntax).
      *
      * Alternatively this can be a string prefixed with `php:` representing a format that can be recognized by the
-     * PHP [date()](http://php.net/manual/de/function.date.php)-function.
+     * PHP [date()](http://php.net/manual/en/function.date.php)-function.
      *
      * For example:
      *
@@ -196,7 +196,7 @@ class Formatter extends Component
      * Please refer to the [PHP manual](http://php.net/manual/en/class.numberformatter.php#intl.numberformatter-constants.unumberformatsymbol)
      * for the possible options.
      *
-     * For example to choose a custom currency symbol, e.g. [U+20BD](http://unicode-table.com/de/20BD/) instead of `руб.` for Russian Ruble:
+     * For example to choose a custom currency symbol, e.g. [U+20BD](http://unicode-table.com/en/20BD/) instead of `руб.` for Russian Ruble:
      *
      * ```php
      * [
@@ -447,7 +447,7 @@ class Formatter extends Component
      * It can also be a custom format as specified in the [ICU manual](http://userguide.icu-project.org/formatparse/datetime).
      *
      * Alternatively this can be a string prefixed with `php:` representing a format that can be recognized by the
-     * PHP [date()](http://php.net/manual/de/function.date.php)-function.
+     * PHP [date()](http://php.net/manual/en/function.date.php)-function.
      *
      * @return string the formatted result.
      * @throws InvalidParamException if the input value can not be evaluated as a date value.
@@ -479,7 +479,7 @@ class Formatter extends Component
      * It can also be a custom format as specified in the [ICU manual](http://userguide.icu-project.org/formatparse/datetime).
      *
      * Alternatively this can be a string prefixed with `php:` representing a format that can be recognized by the
-     * PHP [date()](http://php.net/manual/de/function.date.php)-function.
+     * PHP [date()](http://php.net/manual/en/function.date.php)-function.
      *
      * @return string the formatted result.
      * @throws InvalidParamException if the input value can not be evaluated as a date value.
@@ -511,7 +511,7 @@ class Formatter extends Component
      * It can also be a custom format as specified in the [ICU manual](http://userguide.icu-project.org/formatparse/datetime).
      *
      * Alternatively this can be a string prefixed with `php:` representing a format that can be recognized by the
-     * PHP [date()](http://php.net/manual/de/function.date.php)-function.
+     * PHP [date()](http://php.net/manual/en/function.date.php)-function.
      *
      * @return string the formatted result.
      * @throws InvalidParamException if the input value can not be evaluated as a date value.
@@ -1134,7 +1134,7 @@ class Formatter extends Component
 
         $position = 0;
         do {
-            if ($value < $this->sizeFormatBase) {
+            if (abs($value) < $this->sizeFormatBase) {
                 break;
             }
             $value = $value / $this->sizeFormatBase;
@@ -1156,7 +1156,9 @@ class Formatter extends Component
         // format the size value
         $params = [
             // this is the unformatted number used for the plural rule
-            'n' => $value,
+            // abs() to make sure the plural rules work correctly on negative numbers, intl does not cover this
+            // http://english.stackexchange.com/questions/9735/is-1-singular-or-plural
+            'n' => abs($value),
             // this is the formatted number used for display
             'nFormatted' => $this->asDecimal($value, $decimals, $options, $textOptions),
         ];
@@ -1168,9 +1170,9 @@ class Formatter extends Component
     /**
      * Normalizes a numeric input value
      *
-     * - everything [empty](http://php.net/manual/de/function.empty.php) will result in `0`
-     * - a [numeric](http://php.net/manual/de/function.is-numeric.php) string will be casted to float
-     * - everything else will be returned if it is [numeric](http://php.net/manual/de/function.is-numeric.php),
+     * - everything [empty](http://php.net/manual/en/function.empty.php) will result in `0`
+     * - a [numeric](http://php.net/manual/en/function.is-numeric.php) string will be casted to float
+     * - everything else will be returned if it is [numeric](http://php.net/manual/en/function.is-numeric.php),
      *   otherwise an exception is thrown.
      *
      * @param mixed $value the input value

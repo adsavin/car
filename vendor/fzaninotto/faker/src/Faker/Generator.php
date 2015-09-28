@@ -41,6 +41,7 @@ namespace Faker;
  * @property string $creditCardExpirationDateString
  * @property string $creditCardDetails
  * @property string $bankAccountNumber
+ * @method string iban($countryCode = null, $prefix = '', $length = null)
  * @property string $swiftBicNumber
  * @property string $vat
  *
@@ -184,7 +185,7 @@ class Generator
         if ($seed === null) {
             mt_srand();
         } else {
-            mt_srand($seed);
+            mt_srand((int) $seed);
         }
     }
 

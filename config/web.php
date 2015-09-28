@@ -19,34 +19,11 @@ $config = [
         ],
         'user' => [
             'identityClass' => 'app\models\User',
-//            'identityClass' => 'dektrium\user\models\User',
             'enableAutoLogin' => true,
         ],
         'errorHandler' => [
             'errorAction' => 'site/error',
         ],
-//        'mailer' => [
-//            'class' => 'yii\swiftmailer\Mailer',
-//            // send all mails to a file by default. You have to set
-//            // 'useFileTransport' to false and configure a transport
-//            // for the mailer to send real emails.
-//            'useFileTransport' => true,            
-//        ],
-//        'mailer' => [
-//            'class' => 'yii\swiftmailer\Mailer',
-//            'viewPath' => '@app/view/mail/template',
-//            'useFileTransport' => false, //set this property to false to send mails to real email addresses
-//            //comment the following array to send mail using php's mail function
-//            'transport' => [
-//                'class' => 'Swift_SmtpTransport',
-//                'host' => 'ssl://smtp.gmail.com',
-//                'username' => 'laodebug@gmail.com',
-//                'password' => 'gm@bcel5115',
-//                'port' => '465',
-////                'auth' => true,
-//                'encryption' => 'tls',
-//            ],
-//        ],
         'mailer' => [
             'class' => 'yii\swiftmailer\Mailer',
             'transport' => [
@@ -74,7 +51,6 @@ $config = [
         ],
         'db' => require(__DIR__ . '/db.php'),
         'authManager' => [
-            // 'class' =>  'yii\rbac\PhpManager',
             'class' => 'yii\rbac\DbManager',
         ],
         'i18n' => [
@@ -93,7 +69,8 @@ $config = [
         'view' => [
             'theme' => [
                 'pathMap' => [
-                    '@dektrium/user/views' => '@app/views/user'
+                    '@dektrium/user/views' => '@app/views/user',
+                    '@vendor/mdmsoft/yii2-admin/views' => '@app/views/admin'
                 ],
             ],
         ],
@@ -105,9 +82,7 @@ $config = [
             'layout' => 'left-menu',
             'controllerMap' => [
                 'assignment' => [
-//                    'class' => 'mdm\admin\controllers\AssignmentController',
                     'class' => 'app\controllers\AdminAssignmentController',
-//                    'userClassName' => 'dektrium\user\models\User',
                     'userClassName' => 'app\models\User',
                 ],
                 'role' => [
@@ -154,7 +129,6 @@ $config = [
         'allowActions' => [
             'site/*',
             'gii/*',
-//            'admin/*',
             'debug/*',
             'user/registration/*',
             'user/security/*',

@@ -10,7 +10,7 @@ use mdm\admin\controllers\AssignmentController as BaseAssignment;
  */
 class AdminAssignmentController extends BaseAssignment {
     
-    public function actionIndex() {        
+    public function actionIndex() {            
         return parent::actionIndex();
     }
 

@@ -47,21 +47,21 @@ $this->params['breadcrumbs'][] = $this->title;
         DetailView::widget([
             'model' => $model,
             'attributes' => [
-//                'id',
                 'category',
                 'message:ntext',
             ],
         ])
         ?>
-        <?=
-        DetailView::widget([
-            'model' => $model->getMessages()->one(),
-            'attributes' => [
-//                'id',
-                'language',
-                'translation:ntext',
-            ],
-        ])
+        <?php
+        foreach ($model->getMessages()->all() as $message) {
+            echo DetailView::widget([
+                'model' => $message,
+                'attributes' => [
+                    'language',
+                    'translation:ntext',
+                ],
+            ]);
+        }
         ?>
     </div>
 </div>
