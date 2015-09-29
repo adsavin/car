@@ -73,6 +73,7 @@ AppAsset::register($this);
             ];
             if (Yii::$app->user->can("Administrator")) {
                 $items[] = ["label" => Yii::t('app', "Setting"), "items" => [
+                        ['label' => Yii::t('app', 'Products Unit'), 'url' => ['/product-unit']],
                         ['label' => Yii::t('app', 'Products Category'), 'url' => ['/product-category']],
                         ['label' => Yii::t('app', 'Products Group'), 'url' => ['/product-group']],
                         ['label' => Yii::t('app', 'Products'), 'url' => ['/product']],
@@ -145,15 +146,21 @@ AppAsset::register($this);
             </div>
         </div>
         <?php
-        
         Modal::begin([
             'header' => '<h3>Title</h3>',
 //            'toggleButton' => ['label' => 'click me'],
             'id' => 'modalbox'
-        ]);        
-        Pjax::begin();
+        ]);
+        Pjax::begin(["timeout" => 10000]);
+        ?>
+        <div class="row">
+            <div id="modalcontainer" class="col-lg-12">
+
+            </div>
+        </div>
+        <?php
         Pjax::end();
-        Modal::end();        
+        Modal::end();
         ?>
 
         <footer class="footer hidden-print">

@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "d421f86c7e91960748aa381463e49220",
-    "content-hash": "7ca2d982b946ffa1d9110411ac738fde",
+    "hash": "d1e0e105efa9b381f95c88958c91fdc6",
+    "content-hash": "bbf25a73b7113ecb80e7b8bbb87f9c59",
     "packages": [
         {
             "name": "bower-asset/bootstrap",
@@ -536,6 +536,50 @@
                 "select"
             ],
             "time": "2015-07-14 09:54:25"
+        },
+        {
+            "name": "kartik-v/yii2-grid",
+            "version": "v3.0.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/kartik-v/yii2-grid.git",
+                "reference": "443373ab26cc3d2907f069467aa7f1c31dddd44a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/kartik-v/yii2-grid/zipball/443373ab26cc3d2907f069467aa7f1c31dddd44a",
+                "reference": "443373ab26cc3d2907f069467aa7f1c31dddd44a",
+                "shasum": ""
+            },
+            "require": {
+                "kartik-v/yii2-krajee-base": "*"
+            },
+            "type": "yii2-extension",
+            "autoload": {
+                "psr-4": {
+                    "kartik\\grid\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD 3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Kartik Visweswaran",
+                    "email": "kartikv2@gmail.com",
+                    "homepage": "http://www.krajee.com/"
+                }
+            ],
+            "description": "Yii 2 GridView on steroids. Various enhancements and utilities for the Yii 2.0 GridView widget.",
+            "homepage": "https://github.com/kartik-v/yii2-grid",
+            "keywords": [
+                "extension",
+                "grid",
+                "widget",
+                "yii2"
+            ],
+            "time": "2015-05-10 19:41:47"
         },
         {
             "name": "kartik-v/yii2-krajee-base",
@@ -1538,7 +1582,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/mdmsoft/yii2-admin/zipball/269890fb4d6ae57220de2e5ab5a8796435646ce3",
+                "url": "https://api.github.com/repos/mdmsoft/yii2-admin/zipball/7f1ae924f8bbe22eacd60cabc64496e6ee1d3f13",
                 "reference": "269890fb4d6ae57220de2e5ab5a8796435646ce3",
                 "shasum": ""
             },
@@ -1689,7 +1733,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yiisoft/yii2-framework/zipball/b5f356eb58005d604a6eef25a3c422446e5e80c0",
+                "url": "https://api.github.com/repos/yiisoft/yii2-framework/zipball/d0ecf6e89c7c5ac6afd48f6be521c1d0953f160f",
                 "reference": "b5f356eb58005d604a6eef25a3c422446e5e80c0",
                 "shasum": ""
             },
@@ -2093,6 +2137,96 @@
             "time": "2015-09-18 14:17:14"
         },
         {
+            "name": "kartik-v/mpdf",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/kartik-v/mpdf.git",
+                "reference": "d48b421625a8760bea72fe2608ff76e77ce7fc0e"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/kartik-v/mpdf/zipball/d48b421625a8760bea72fe2608ff76e77ce7fc0e",
+                "reference": "d48b421625a8760bea72fe2608ff76e77ce7fc0e",
+                "shasum": ""
+            },
+            "require": {
+                "ext-mbstring": "*",
+                "php": ">=4.3.10"
+            },
+            "type": "library",
+            "autoload": {
+                "classmap": [
+                    "mpdf.php",
+                    "classes"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPL-1.0+"
+            ],
+            "authors": [
+                {
+                    "name": "Ian N Back"
+                }
+            ],
+            "description": "A PHP class to generate PDF files from HTML with Unicode/UTF-8 and CJK support. This is a fork of the official mPDF library.",
+            "homepage": "http://www.mpdf1.com/mpdf/index.php",
+            "keywords": [
+                "pdf",
+                "php",
+                "utf-8"
+            ],
+            "time": "2015-06-18 15:13:20"
+        },
+        {
+            "name": "kartik-v/yii2-mpdf",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/kartik-v/yii2-mpdf.git",
+                "reference": "f65fe859e01374545276d40428d6ff75e4985050"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/kartik-v/yii2-mpdf/zipball/f65fe859e01374545276d40428d6ff75e4985050",
+                "reference": "f65fe859e01374545276d40428d6ff75e4985050",
+                "shasum": ""
+            },
+            "require": {
+                "kartik-v/mpdf": "*"
+            },
+            "type": "yii2-extension",
+            "autoload": {
+                "psr-4": {
+                    "kartik\\mpdf\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD 3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Kartik Visweswaran",
+                    "email": "kartikv2@gmail.com",
+                    "homepage": "http://www.krajee.com/"
+                }
+            ],
+            "description": "A Yii2 wrapper component for the mPDF library which generates PDF files from UTF-8 encoded HTML.",
+            "homepage": "https://github.com/kartik-v/yii2-mpdf",
+            "keywords": [
+                "component",
+                "extension",
+                "html",
+                "mpdf",
+                "pdf",
+                "utf8",
+                "yii2"
+            ],
+            "time": "2015-04-21 15:19:01"
+        },
+        {
             "name": "phpspec/php-diff",
             "version": "dev-master",
             "source": {
@@ -2324,7 +2458,8 @@
     "stability-flags": {
         "dektrium/yii2-user": 20,
         "mpdf/mpdf": 20,
-        "kartik-v/yii2-widgets": 20
+        "kartik-v/yii2-widgets": 20,
+        "kartik-v/yii2-grid": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,

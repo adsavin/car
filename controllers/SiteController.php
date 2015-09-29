@@ -51,6 +51,7 @@ class SiteController extends Controller {
                 'class' => 'yii\captcha\CaptchaAction',
                 'fixedVerifyCode' => YII_ENV_TEST ? 'testme' : null,
             ],
+            
         ];
     }
 
@@ -90,7 +91,7 @@ class SiteController extends Controller {
         }
     }
 
-    public function actionPdf() {                
+    public function actionPdf() {
         $mpdf = new \mPDF("lo"); //mPDF($mode='',$format='A4',$default_font_size=0,$default_font='',$mgl=15,$mgr=15,$mgt=16,$mgb=16,$mgh=9,$mgf=9, $orientation='P')        
         $mpdf->WriteHTML("<style>" . file_get_contents("bootstrap/css/bootstrap.css") . "</style>");
         $mpdf->WriteHTML("<style>" . file_get_contents("css/site.css") . "</style>");

@@ -3,16 +3,6 @@
 $vendorDir = dirname(__DIR__);
 
 return array (
-  'dektrium/yii2-user' => 
-  array (
-    'name' => 'dektrium/yii2-user',
-    'version' => '0.9.4.0',
-    'alias' => 
-    array (
-      '@dektrium/user' => $vendorDir . '/dektrium/yii2-user',
-    ),
-    'bootstrap' => 'dektrium\\user\\Bootstrap',
-  ),
   'yiisoft/yii2-swiftmailer' => 
   array (
     'name' => 'yiisoft/yii2-swiftmailer',
@@ -272,6 +262,25 @@ return array (
     'alias' => 
     array (
       '@kartik/widgets' => $vendorDir . '/kartik-v/yii2-widgets',
+    ),
+  ),
+  'dektrium/yii2-user' => 
+  array (
+    'name' => 'dektrium/yii2-user',
+    'version' => '0.9.4.0',
+    'alias' => 
+    array (
+      '@dektrium/user' => $vendorDir . '/dektrium/yii2-user',
+    ),
+    'bootstrap' => 'dektrium\\user\\Bootstrap',
+  ),
+  'kartik-v/yii2-grid' => 
+  array (
+    'name' => 'kartik-v/yii2-grid',
+    'version' => '3.0.2.0',
+    'alias' => 
+    array (
+      '@kartik/grid' => $vendorDir . '/kartik-v/yii2-grid',
     ),
   ),
 );

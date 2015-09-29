@@ -64,7 +64,7 @@ class ProductCategoryController extends Controller {
         $model = new ProductCategory();
         $searchModel = new ProductCategorySearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-        if ($model->load(Yii::$app->request->post())) {            
+        if ($model->load(Yii::$app->request->post())) {
             $model->last_update = date("Y-m-d H:i:s");
             \app\components\Util::save($model);
         }
@@ -124,26 +124,16 @@ class ProductCategoryController extends Controller {
         }
     }
 
-    public function actionListModal() {
-        $searchModel = new ProductCategorySearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-//        $post = Yii::$app->request->post();
-//        print_r($post);
-        echo $this->renderAjax("modal_category", [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider
-        ]);
-    }
-
     public function actionSearch() {
         $post = \Yii::$app->request->post();
-        
-        if(isset($post["id"])) {
-            $category = ProductCategory::find()->where("code=:id", [":id" => $post["id"]])->one();
-            
-            if($category) {
+        if (isset($post["code"])) {
+            $category = ProductCategory::find()->where("code=:code", [":code" => $post["code"]])->one();            
+            if ($category) {
                 echo json_encode(["id" => $category->id, "code" => $category->code, "name" => $category->name]);
             }
+        } else {
+            echo "";
         }
     }
+
 }

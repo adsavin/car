@@ -80,7 +80,7 @@ class ProductBase extends \yii\db\ActiveRecord
      */
     public function getProductGroup()
     {
-        return $this->hasOne(ProductGroup::className(), ['id' => 'product_group_id']);
+        return $this->hasOne(ProductGroupBase::className(), ['id' => 'product_group_id']);
     }
 
     /**
@@ -96,7 +96,7 @@ class ProductBase extends \yii\db\ActiveRecord
      */
     public function getProductUnit()
     {
-        return $this->hasOne(ProductUnit::className(), ['id' => 'product_unit_id']);
+        return $this->hasOne(ProductUnitBase::className(), ['id' => 'product_unit_id']);
     }
 
     /**
@@ -104,7 +104,7 @@ class ProductBase extends \yii\db\ActiveRecord
      */
     public function getProductImages()
     {
-        return $this->hasMany(ProductImage::className(), ['product_id' => 'id']);
+        return $this->hasMany(ProductImageBase::className(), ['product_id' => 'id']);
     }
 
     /**
@@ -112,6 +112,6 @@ class ProductBase extends \yii\db\ActiveRecord
      */
     public function getProductSerials()
     {
-        return $this->hasMany(ProductSerial::className(), ['product_id' => 'id']);
+        return $this->hasMany(ProductSerialBase::className(), ['product_id' => 'id']);
     }
 }

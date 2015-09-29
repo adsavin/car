@@ -113,6 +113,6 @@ input.form-control:focus, textarea.form-control:focus {
     margin: 0;
     padding: 7px 10px;
 }
-.table td {
-    vertical-align: central;
+table.table tbody tr td {
+    vertical-align: middle;
 }

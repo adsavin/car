@@ -2,6 +2,8 @@
 
 use yii\helpers\Html;
 use yii\grid\GridView;
+use yii\helpers\ArrayHelper;
+use yii\widgets\Pjax;
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\search\ProductGroupSearch */
@@ -17,7 +19,7 @@ $this->params['breadcrumbs'][] = $this->title;
         <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
         <?php app\components\Util::createButton() ?>
-
+        <?php Pjax::begin(["timeout" => 10000]) ?>
         <?=
         GridView::widget([
             'dataProvider' => $dataProvider,
@@ -34,14 +36,17 @@ $this->params['breadcrumbs'][] = $this->title;
                 [
                     'attribute' => 'product_category_id',
                     'header' => Yii::t('app', 'Product Category'),
-                    'filter' => \yii\bootstrap\Html::dropDownList("filter-category", null, \yii\helpers\ArrayHelper::map(\app\models\ProductCategory::find()->all(), "id", "name"), ['class' => 'form-control']),
+                    'filter' => Html::activeDropDownList($searchModel, 'product_category_id', ArrayHelper::map(\app\models\ProductCategory::find()->asArray()->all(), 'id', 'name'), ['class' => 'form-control', 'prompt' => Yii::t('app', 'All')]),
                     'value' => function ($data) {
-                        return $data->productCategory->name;
-                    }
+                return $data->productCategory->name;
+            }
                 ],
-                ['class' => 'yii\grid\ActionColumn'],
+                ['class' => 'yii\grid\ActionColumn',
+                    'template' => '{update} {delete}'
+                ],
             ],
         ]);
         ?>
+        <?php Pjax::end() ?>
     </div>    
 </div>

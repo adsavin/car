@@ -74,6 +74,18 @@ $config = [
                 ],
             ],
         ],
+        'authClientCollection' => [
+            'class' => 'yii\authclient\Collection',
+            'clients' => [
+                'facebook' => [
+                    'class' => 'yii\authclient\clients\Facebook',
+                    'authUrl' => 'https://www.facebook.com/dialog/oauth?display=popup',
+                    'clientId' => '1628840660699320',
+                    'clientSecret' => 'a6407c123de02a09933f9eb43bd3c20e',
+                    'viewOptions' => ['popupWidth' => 400, 'popupHeight' => 400,]
+                ],
+            ],
+        ],
     ],
     'params' => $params,
     'modules' => [
@@ -123,6 +135,14 @@ $config = [
 //            /user/profile/show	Displays user's profile (requires id query param)
 //            /user/admin/index	Displays user management interface
         ],
+        'gridview' => [
+            'class' => '\kartik\grid\Module'
+        // enter optional module parameters below - only if you need to  
+        // use your own export download action or custom translation 
+        // message source
+        // 'downloadAction' => 'gridview/export/download',
+        // 'i18n' => []
+        ]
     ],
     'as access' => [
         'class' => 'mdm\admin\components\AccessControl',

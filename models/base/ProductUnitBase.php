@@ -29,8 +29,7 @@ class ProductUnitBase extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['id', 'code'], 'required'],
-            [['id'], 'integer'],
+            [['code'], 'required'],
             [['code'], 'string', 'max' => 50],
             [['name'], 'string', 'max' => 255],
             [['code'], 'unique']
